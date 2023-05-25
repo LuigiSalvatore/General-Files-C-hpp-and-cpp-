@@ -1,0 +1,28 @@
+SPECULATE = app
+CFLAGS = -c -std=c++11
+
+all:			${SPECULATE}
+
+${SPECULATE}:	main.o Tabuleiro.o Placar.o Jogador.o Dado.o
+	g++ -o ${SPECULATE} main.o Tabuleiro.o Placar.o Jogador.o Dado.o
+
+main.o: 		main.cpp Tabuleiro.hpp Tabuleiro.cpp Placar.cpp Placar.hpp
+	g++ ${CFLAGS} main.cpp
+
+Placar.o:		Placar.hpp Placar.cpp Jogador.hpp Jogador.cpp Tabuleiro.hpp Tabuleiro.cpp
+	g++ ${CFLAGS} Placar.cpp
+
+Tabuleiro.o: 	Tabuleiro.hpp Tabuleiro.cpp Dado.hpp Dado.cpp Jogador.hpp Jogador.cpp
+	g++ ${CFLAGS} Tabuleiro.cpp
+
+Dado.o:			Dado.hpp Dado.cpp 
+	g++ ${CFLAGS} Dado.cpp
+
+Jogador.o:		Jogador.hpp Jogador.cpp
+	g++ ${CFLAGS} Jogador.cpp
+
+run:			${SPECULATE} 
+	./${SPECULATE}
+
+clean: 			
+	rm -f Jogador.o Dado.o Placar.o Tabuleiro.o main.o ${SPECULATE}
